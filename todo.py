@@ -78,9 +78,10 @@ class Todo:
                         sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos=pygame.mouse.get_pos()
-                    for item in self.todo_items_rects:
+                    for i in range(0,len(self.todo_items)):
+                        item=self.todo_items_rects[i]
                         if item.collidepoint(mouse_pos) and self.check_for_mouse:
-                            todo_item_item=self.todo_items[self.todo_items_rects.index(item)]
+                            todo_item_item=self.todo_items[i]
                             self.todo_items.remove(todo_item_item)
                             if len(self.todo_items)==0:
                                 self.todo_items=[TodoItem(0,'You'),TodoItem(1,'have'),TodoItem(2,'finished'),TodoItem(3,'all'),TodoItem(4,'your'),TodoItem(5,'tasks!')]
@@ -95,6 +96,7 @@ class Todo:
         self.welcome_text.draw()
         
         last_rect = self.welcome_text.rect
+        self.todo_items_rects=[]
         for item in self.todo_items:
             if item.priority==0:
                 color_this = (255,0,0)
