@@ -5,7 +5,9 @@ A simple todo app made in Python
 - Download the app from release (currently v1)
 - Add a todo.txt at the same directory
 - Double tap and run
-  OR
+
+OR
+
 - Download the source code from release (currently v1)
 - Unpack it
 - Make sure you have python and pygame
