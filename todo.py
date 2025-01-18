@@ -22,13 +22,32 @@ class Text:
 class ColoredText(Text):
     def __init__(self,ai_game,text,color,backgroundcolor):
         super().__init__(ai_game,text,color)
+        self.font = pygame.font.SysFont('Maple Mono NF CN', 10)
         self.bg_color = backgroundcolor
         
-    def _prep_msg(self):
-        super()._prep_msg()
+    def _prep_msg(self,rect):
+        self.msg_image = self.font.render(self.text, True, self.text_color)
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = rect.center
+        self.msg_image_rect.left = rect.left
 
     def draw(self):
         self.screen.fill(self.bg_color,self.rect)
+        if self.bg_color[0]+10>255:
+            r=self.bg_color[0]
+        else:
+            r=self.bg_color[0]+10
+        if self.bg_color[1]+10>255:
+            g=self.bg_color[1]
+        else:
+            g=self.bg_color[1]+10
+        if self.bg_color[2]+10>255:
+            b=self.bg_color[2]
+        else:
+            b=self.bg_color[2]+10
+        
+        color = pygame.Color(r,g,b,128)
+        pygame.draw.rect(self.screen,color,self.rect,1)
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
 class TodoItem:
@@ -51,7 +70,7 @@ class Todo:
         try:
             with open('todo.txt') as f:
                 for line in f:
-                    title,priority = line.strip().split(',')
+                    title,priority = line.split(',')
                     self.todo_items.append(TodoItem(int(priority),title))
         except FileNotFoundError:
             self.todo_items.append(TodoItem(0,'Pleas add your tasks in todo.txt.'))
@@ -99,23 +118,23 @@ class Todo:
         self.todo_items_rects=[]
         for item in self.todo_items:
             if item.priority==0:
-                color_this = (255,0,0)
+                color_this = (245,0,0)
             elif item.priority==1:
-                color_this = (255,128,0)
+                color_this = (245,135,0)
             elif item.priority==2:
-                color_this = (255,255,0)
+                color_this = (245,245,0)
             elif item.priority==3:
-                color_this = (127,255,0)
+                color_this = (135,245,0)
             elif item.priority==4:
-                color_this = (0,255,0)
+                color_this = (0,245,0)
             elif item.priority==5:
-                color_this = (0,255,255)
+                color_this = (0,245,245)
             button_this = ColoredText(self,item.title,(0,0,0),color_this)
-            button_this.rect = pygame.Rect(0,0,self.screen.get_rect().width,(self.screen.get_rect().height-100)/len(self.todo_items))
+            button_this.rect = pygame.Rect(0,0,self.screen.get_rect().width,(self.screen.get_rect().height-100)/(len(self.todo_items)))
             button_this.rect.top = last_rect.bottom
             last_rect = button_this.rect
             self.todo_items_rects.append(button_this.rect)
-            button_this._prep_msg()
+            button_this._prep_msg(button_this.rect)
             button_this.draw()
                 
     def _update_screen(self):
