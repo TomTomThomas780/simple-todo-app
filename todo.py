@@ -74,10 +74,16 @@ class Todo:
                         title,priority = line.split(',')
                         self.todo_items.append(TodoItem(int(priority),title))
                     except:
-                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'We\'ve got some error reading todo.txt.'))
-                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Please check todo.txt.'))
-                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Make sure you are following the format.'))
-                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Format: title,priority'))
+                        try:
+                            self.todo_items.append(TodoItem(self.todo_items[-1].priority,'We\'ve got some error reading todo.txt.'))
+                            self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Please check todo.txt.'))
+                            self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Make sure you are following the format.'))
+                            self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Format: title,priority'))
+                        except:
+                            self.todo_items.append(TodoItem(0,'We\'ve got some error reading todo.txt.'))
+                            self.todo_items.append(TodoItem(0,'Please check todo.txt.'))
+                            self.todo_items.append(TodoItem(0,'Make sure you are following the format.'))
+                            self.todo_items.append(TodoItem(0,'Format: title,priority'))
         except FileNotFoundError:
             self.todo_items.append(TodoItem(0,'Pleas add your tasks in todo.txt.'))
             self.todo_items.append(TodoItem(1,'Format: title,priority'))

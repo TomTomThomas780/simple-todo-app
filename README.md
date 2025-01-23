@@ -1,7 +1,9 @@
 # simple-todo-app
+
 A simple todo app made in Python
 
-# How to use ?
+## How to use ?
+
 - Download the app from release (currently v1)
 - Add a todo.txt at the same directory
 - Double tap and run
@@ -14,4 +16,4 @@ OR
 - Add a todo.txt at the same directory
 - Run `python3 todo.py` in command line
 
-# We are very glad if you can contribute!
+## We are very glad if you can contribute!
