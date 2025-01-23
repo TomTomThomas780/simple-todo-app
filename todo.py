@@ -70,13 +70,23 @@ class Todo:
         try:
             with open('todo.txt') as f:
                 for line in f:
-                    title,priority = line.split(',')
-                    self.todo_items.append(TodoItem(int(priority),title))
+                    try:
+                        title,priority = line.split(',')
+                        self.todo_items.append(TodoItem(int(priority),title))
+                    except:
+                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'We\'ve got some error reading todo.txt.'))
+                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Please check todo.txt.'))
+                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Make sure you are following the format.'))
+                        self.todo_items.append(TodoItem(self.todo_items[-1].priority,'Format: title,priority'))
         except FileNotFoundError:
             self.todo_items.append(TodoItem(0,'Pleas add your tasks in todo.txt.'))
             self.todo_items.append(TodoItem(1,'Format: title,priority'))
             self.todo_items.append(TodoItem(2,'Priority is 0-5.(0 is highest)'))
             self.check_for_mouse=False
+        except:
+            self.todo_items.append(TodoItem(0,'We\'ve got some error here.'))
+            self.todo_items.append(TodoItem(1,'Please check todo.txt.'))
+            self.todo_items.append(TodoItem(2,'Problem still occurs? Please contact thomasjinzihao@icloud.com through email.'))
         self.todo_items=sorted(self.todo_items,key=lambda x:x.priority)
         self.bg_color = (255,255,255)
         pygame.display.set_caption('Todo')
