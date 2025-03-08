@@ -71,7 +71,15 @@ class Todo:
             with open('todo.txt') as f:
                 for line in f:
                     try:
-                        title,priority = line.split(',')
+                        try:
+                            title,priority = line.split(',')
+                        except:
+                            title = f"please follow format: title,priority (your line: {line})"
+                            try:
+                                priority = self.todo_items[-1].priority
+                            except:
+                                priority = 0
+                        
                         if int(priority) > 5:
                             priority = 5
                             text+="(priority capped at 5)"
