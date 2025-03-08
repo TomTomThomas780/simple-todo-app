@@ -68,7 +68,7 @@ class Todo:
         self.todo_items_rects=[]
         self.check_for_mouse=True
         try:
-            with open('todo.txt') as f:
+            with open('todo.txt',encoding="utf-8") as f:
                 for line in f:
                     try:
                         try:
@@ -99,9 +99,11 @@ class Todo:
             self.todo_items.append(TodoItem(2,'Priority is 0-5.(0 is highest)'))
             self.check_for_mouse=False
         except:
+            self.check_for_mouse=False
             self.todo_items.append(TodoItem(0,'We\'ve got some error here.'))
             self.todo_items.append(TodoItem(1,'Please check todo.txt.'))
             self.todo_items.append(TodoItem(2,'Problem still occurs? Please contact thomasjinzihao@icloud.com through email.'))
+            raise
         self.todo_items=sorted(self.todo_items,key=lambda x:x.priority)
         self.bg_color = (255,255,255)
         pygame.display.set_caption('Todo')
