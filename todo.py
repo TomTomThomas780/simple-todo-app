@@ -103,7 +103,6 @@ class Todo:
             self.todo_items.append(TodoItem(0,'We\'ve got some error here.'))
             self.todo_items.append(TodoItem(1,'Please check todo.txt.'))
             self.todo_items.append(TodoItem(2,'Problem still occurs? Please contact thomasjinzihao@icloud.com through email.'))
-            raise
         self.todo_items=sorted(self.todo_items,key=lambda x:x.priority)
         self.bg_color = (255,255,255)
         pygame.display.set_caption('Todo')
